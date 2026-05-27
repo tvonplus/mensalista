@@ -81,45 +81,33 @@ body{
 }
 
 .logo img{
-    width:260px;
+    width:170px;
     max-width:100%;
 }
 
-.badge{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    padding:10px 18px;
-    border:1px solid rgba(0,217,255,0.4);
-    border-radius:50px;
-    background:rgba(255,255,255,0.03);
-    backdrop-filter:blur(10px);
-    color:#00d9ff;
-    font-size:14px;
-    margin-bottom:25px;
-}
-
-.badge::before{
-    content:"";
-    width:10px;
-    height:10px;
-    border-radius:50%;
-    background:#00ff84;
-    box-shadow:0 0 15px #00ff84;
-}
+/* TITULO */
 
 h1{
-    font-size:78px;
-    line-height:0.95;
+    font-size:52px;
+    line-height:1.05;
     font-weight:800;
     margin-bottom:25px;
 }
 
+h1 div{
+    display:block;
+    color:white;
+    margin-bottom:8px;
+}
+
 h1 span{
+    display:block;
     background:linear-gradient(90deg,#00d9ff,#7b2fff,#ff00aa);
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
 }
+
+/* DESCRIÇÃO */
 
 .description{
     font-size:18px;
@@ -214,27 +202,6 @@ h1 span{
     filter:blur(30px);
 }
 
-.top-info{
-    display:flex;
-    justify-content:space-between;
-    margin-bottom:40px;
-}
-
-.live{
-    color:#00ff84;
-    font-weight:600;
-    font-size:14px;
-}
-
-.live::before{
-    content:"? ";
-}
-
-.signal{
-    color:#b8c2d1;
-    font-size:14px;
-}
-
 .price-title{
     color:#b8c2d1;
     margin-bottom:15px;
@@ -327,7 +294,7 @@ h1 span{
     }
 
     h1{
-        font-size:52px;
+        font-size:42px;
     }
 
     .price{
@@ -339,7 +306,7 @@ h1 span{
 @media(max-width:600px){
 
     h1{
-        font-size:42px;
+        font-size:34px;
     }
 
     .description{
@@ -377,13 +344,9 @@ h1 span{
 <img src="logo.png" alt="Tv On+">
 </div>
 
-<div class="badge">
-ESTRUTURA PREMIUM • IPTV FUTURISTA
-</div>
-
 <h1>
-PAINEL IPTV<br>
-<span>MULTISERVIDOR</span>
+    <div>PAINEL ILIMITADO</div>
+    <span>MULTISERVIDOR</span>
 </h1>
 
 <p class="description">
@@ -427,10 +390,6 @@ Equipe pronta para ajudar você rapidamente sempre que precisar.
 <div class="right">
 
 <div class="panel">
-
-<div class="top-info">
-<div class="live">ONLINE</div>
-</div>
 
 <div class="price-title">
 Mensalidade do Painel
