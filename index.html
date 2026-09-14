@@ -41,6 +41,8 @@
     body {
       margin: 0;
       min-width: 320px;
+      height: 125vh;
+      overflow: hidden;
       zoom: .8;
       background: var(--canvas);
       color: var(--ink);
@@ -60,9 +62,11 @@
     }
 
     .app-shell {
-      min-height: 125vh;
+      height: 125vh;
+      min-height: 0;
       display: grid;
       grid-template-columns: 248px minmax(0, 1fr);
+      overflow: hidden;
     }
 
     .login-screen {
@@ -204,8 +208,12 @@
     .main {
       width: 100%;
       max-width: 1640px;
+      height: 125vh;
       margin: 0 auto;
-      padding: 30px 34px 46px;
+      padding: 22px 28px 24px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
     }
 
     .topbar {
@@ -258,7 +266,7 @@
     .btn svg, .icon-btn svg, .brand-mark svg, .nav-item svg { width: 18px; height: 18px; flex: 0 0 auto; }
 
     .sync-strip {
-      margin-top: 22px;
+      margin-top: 13px;
       min-height: 39px;
       padding: 7px 10px 7px 13px;
       border: 1px solid var(--line);
@@ -288,15 +296,15 @@
     }
 
     .summary-grid {
-      margin-top: 17px;
+      margin-top: 11px;
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(230px, 1.15fr);
-      gap: 14px;
+      gap: 11px;
     }
 
     .metric-card {
-      min-height: 145px;
-      padding: 20px;
+      min-height: 112px;
+      padding: 14px 17px;
       border: 1px solid #e1e7ef;
       border-radius: var(--radius-lg);
       background: var(--surface);
@@ -320,12 +328,12 @@
     .metric-label { color: var(--muted); font-size: .82rem; font-weight: 720; }
     .metric-icon { width: 36px; height: 36px; border-radius: 11px; display: grid; place-items: center; color: var(--accent, var(--blue)); background: var(--accent-soft, var(--blue-soft)); }
     .metric-icon svg { width: 18px; height: 18px; }
-    .metric-value { margin-top: 17px; font-size: clamp(1.55rem, 2.5vw, 2.1rem); font-weight: 830; letter-spacing: -.045em; line-height: 1; position: relative; z-index: 1; }
-    .metric-caption { margin-top: 8px; color: var(--muted); font-size: .76rem; position: relative; z-index: 1; }
+    .metric-value { margin-top: 9px; font-size: clamp(1.42rem, 2.3vw, 1.9rem); font-weight: 830; letter-spacing: -.045em; line-height: 1; position: relative; z-index: 1; }
+    .metric-caption { margin-top: 5px; color: var(--muted); font-size: .74rem; position: relative; z-index: 1; }
 
     .progress-card {
-      min-height: 145px;
-      padding: 18px 20px;
+      min-height: 112px;
+      padding: 13px 17px;
       border: 0;
       border-radius: var(--radius-lg);
       background: linear-gradient(145deg, var(--navy-900), #173a5e);
@@ -339,19 +347,23 @@
 
     .progress-card .metric-label { color: #b7c7d8; }
     .progress-copy { min-width: 0; }
-    .progress-value { margin-top: 10px; font-size: 1.45rem; font-weight: 820; letter-spacing: -.03em; }
-    .progress-caption { margin-top: 5px; color: #9fb2c7; font-size: .75rem; }
-    .progress-ring { --progress: 0deg; width: 82px; height: 82px; flex: 0 0 82px; border-radius: 50%; display: grid; place-items: center; background: conic-gradient(var(--mint) var(--progress), rgba(255,255,255,.12) 0); position: relative; }
-    .progress-ring::before { content: ""; position: absolute; inset: 8px; border-radius: 50%; background: #17314f; }
-    .progress-ring span { position: relative; z-index: 1; font-size: 1rem; font-weight: 820; }
+    .progress-value { margin-top: 7px; font-size: 1.28rem; font-weight: 820; letter-spacing: -.03em; }
+    .progress-caption { margin-top: 3px; color: #9fb2c7; font-size: .72rem; }
+    .progress-ring { --progress: 0deg; width: 66px; height: 66px; flex: 0 0 66px; border-radius: 50%; display: grid; place-items: center; background: conic-gradient(var(--mint) var(--progress), rgba(255,255,255,.12) 0); position: relative; }
+    .progress-ring::before { content: ""; position: absolute; inset: 7px; border-radius: 50%; background: #17314f; }
+    .progress-ring span { position: relative; z-index: 1; font-size: .88rem; font-weight: 820; }
 
     .panel {
-      margin-top: 16px;
+      margin-top: 11px;
+      min-height: 0;
+      flex: 1 1 auto;
       border: 1px solid #dfe6ee;
       border-radius: var(--radius-lg);
       background: var(--surface);
       box-shadow: var(--shadow);
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
 
     .panel-head {
@@ -389,9 +401,9 @@
       font-weight: 650;
     }
 
-    .table-wrap { overflow-x: auto; }
+    .table-wrap { min-height: 0; flex: 1 1 auto; overflow: auto; overscroll-behavior: contain; scrollbar-gutter: stable; }
     table { width: 100%; border-collapse: collapse; }
-    thead { background: #f7f9fc; }
+    thead { position: sticky; top: 0; z-index: 2; background: #f7f9fc; box-shadow: 0 1px 0 #e4eaf1; }
     th { padding: 11px 16px; color: #738096; font-size: .71rem; font-weight: 800; letter-spacing: .07em; text-align: left; text-transform: uppercase; white-space: nowrap; }
     td { padding: 15px 16px; border-top: 1px solid #edf1f5; vertical-align: middle; font-size: .88rem; }
     tbody tr { transition: background .16s ease; }
@@ -430,6 +442,13 @@
     .icon-btn.pay-rest { color: #93610f; border-color: #f0ce91; background: var(--amber-soft); }
     .icon-btn.delete-client { color: #b83748; border-color: #efc3c9; background: var(--red-soft); }
     .icon-btn.delete-client:hover { color: #fff; border-color: var(--red); background: var(--red); }
+
+    .pagination { min-height: 52px; padding: 8px 14px; border-top: 1px solid #e5ebf2; display: flex; align-items: center; justify-content: flex-end; gap: 10px; background: #fbfcfe; }
+    .pagination[hidden] { display: none; }
+    .pagination-info { min-width: 190px; color: var(--muted); font-size: .77rem; font-weight: 680; text-align: center; }
+    .page-btn { min-height: 35px; padding: 0 11px; border: 1px solid #d5dee8; border-radius: 9px; display: inline-flex; align-items: center; gap: 6px; background: #fff; color: var(--ink); font-size: .77rem; font-weight: 740; }
+    .page-btn:hover:not(:disabled) { border-color: #9fb6ed; background: var(--blue-soft); color: var(--blue); }
+    .page-btn svg { width: 16px; height: 16px; }
 
     .empty {
       display: none;
@@ -525,11 +544,13 @@
     }
 
     @media (max-width: 680px) {
+      body { height: auto; min-height: 125vh; overflow: auto; }
+      .app-shell, .main { height: auto; min-height: 125vh; overflow: visible; }
+      .panel { min-height: 420px; }
       .summary-grid { grid-template-columns: 1fr; }
-      .metric-card { min-height: 125px; }
-      .progress-card { min-height: 132px; }
+      .metric-card, .progress-card { min-height: 112px; }
       .top-actions .btn { flex: 1 1 calc(50% - 5px); padding-inline: 10px; }
-      .table-wrap { overflow: visible; }
+      .table-wrap { max-height: 70vh; overflow: auto; }
       table, tbody { display: block; }
       thead { display: none; }
       tbody { padding: 0 13px 15px; }
@@ -543,6 +564,8 @@
       .form-grid { grid-template-columns: 1fr; }
       .field.full, .check-field { grid-column: auto; }
       .dialog-actions .btn { flex: 1; }
+      .pagination { justify-content: center; flex-wrap: wrap; }
+      .pagination-info { order: -1; flex: 1 1 100%; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -649,7 +672,7 @@
               <option value="todos">Todas as situações</option>
               <option value="em-dia">Em dia</option>
               <option value="vencido">Vencidos</option>
-              <option value="parcial">Com valor em aberto</option>
+              <option value="parcial">Parcial em aberto</option>
               <option value="inativo">Inativos</option>
             </select>
             <button class="btn btn-mint" type="button" id="addBtn"><span data-icon="plus"></span>Adicionar cliente</button>
@@ -679,6 +702,12 @@
           <p id="emptyText">Adicione o primeiro cliente para começar a acompanhar as mensalidades.</p>
           <button class="btn btn-primary" type="button" id="emptyAddBtn"><span data-icon="plus"></span>Adicionar cliente</button>
         </div>
+
+        <nav class="pagination" id="pagination" aria-label="Paginação dos clientes" hidden>
+          <button class="page-btn" type="button" id="prevPageBtn"><span data-icon="chevronLeft"></span>Anterior</button>
+          <span class="pagination-info" id="pageInfo" aria-live="polite">Página 1 de 1</span>
+          <button class="page-btn" type="button" id="nextPageBtn">Próxima<span data-icon="chevronRight"></span></button>
+        </nav>
       </section>
     </main>
   </div>
@@ -750,6 +779,7 @@
       const AUTH_SESSION_KEY = 'mensalista-authenticated';
       const PASSWORD_SALT = 'mensalista-v3-2026';
       const PASSWORD_VERIFIER = '7e16fa4a3907cd7b66df21ba2b9e25eb55e67cb022e4641c1da649a589567345';
+      const CLIENTS_PER_PAGE = 25;
       const localDateISO = (date = new Date()) => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
       const todayISO = localDateISO();
       const currentMonth = todayISO.slice(0, 7);
@@ -758,6 +788,7 @@
         month: currentMonth,
         query: '',
         filter: 'todos',
+        page: 1,
         dirty: false,
         loading: true,
         source: 'remote',
@@ -774,6 +805,7 @@
         remainingValue: $('#remainingValue'), remainingCaption: $('#remainingCaption'),
         progressValue: $('#progressValue'), progressPercent: $('#progressPercent'), progressRing: $('#progressRing'),
         installBtn: $('#installBtn'), refreshBtn: $('#refreshBtn'), copyBtn: $('#copyBtn'), downloadBtn: $('#downloadBtn'), addBtn: $('#addBtn'), emptyAddBtn: $('#emptyAddBtn'),
+        pagination: $('#pagination'), prevPageBtn: $('#prevPageBtn'), nextPageBtn: $('#nextPageBtn'), pageInfo: $('#pageInfo'),
         monthSelect: $('#monthSelect'), searchInput: $('#searchInput'), statusFilter: $('#statusFilter'),
         syncText: $('#syncText'), dirtyPill: $('#dirtyPill'), sourceDot: $('#sourceDot'), sourceStatus: $('#sourceStatus'), sourceMeta: $('#sourceMeta'),
         clientDialog: $('#clientDialog'), clientForm: $('#clientForm'), clientDialogTitle: $('#clientDialogTitle'),
@@ -798,6 +830,8 @@
         plus: '<path d="M12 5v14M5 12h14"/>',
         edit: '<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/>',
         trash: '<path d="M3 6h18M8 6V4h8v2M19 6l-1 15H6L5 6M10 11v6M14 11v6"/>',
+        chevronLeft: '<path d="m15 18-6-6 6-6"/>',
+        chevronRight: '<path d="m9 18 6-6-6-6"/>',
         wallet: '<path d="M4 6h15a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3h13v3"/><path d="M16 12h5"/>',
         install: '<path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/>',
         lock: '<rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>',
@@ -929,16 +963,16 @@
         if (!client.ativo) return 'inativo';
         const paid = getPaid(client, month);
         const due = getDue(client, month);
+        if (paid > 0 && paid < due) return 'parcial';
         if (paid >= due) return 'em-dia';
-        if (new Date() > getDueDate(month, client.vencimento)) return 'vencido';
-        return 'parcial';
+        return new Date() > getDueDate(month, client.vencimento) ? 'vencido' : 'em-dia';
       }
 
       function statusLabel(status, client, month = state.month) {
         if (status === 'inativo') return 'Inativo';
-        if (status === 'parcial') return getPaid(client, month) > 0 ? 'Parcial em aberto' : 'Valor em aberto';
+        if (status === 'parcial') return 'Parcial em aberto';
         if (status === 'vencido') return 'Vencido';
-        return 'Em dia · pago';
+        return getPaid(client, month) >= getDue(client, month) ? 'Em dia · pago' : 'Em dia';
       }
 
       function statusClass(status) {
@@ -953,10 +987,17 @@
 
       function visibleClients() {
         const query = state.query.trim().toLocaleLowerCase('pt-BR');
+        const priority = { vencido: 0, parcial: 1, 'em-dia': 2, inativo: 3 };
         return state.clients.filter((client) => {
           const matchesText = !query || `${client.nome} ${client.usuario} ${client.whatsapp}`.toLocaleLowerCase('pt-BR').includes(query);
           const matchesStatus = state.filter === 'todos' || getStatus(client) === state.filter;
           return matchesText && matchesStatus;
+        }).sort((a, b) => {
+          const statusOrder = (priority[getStatus(a)] ?? 9) - (priority[getStatus(b)] ?? 9);
+          if (statusOrder) return statusOrder;
+          const dueOrder = a.vencimento - b.vencimento;
+          if (dueOrder) return dueOrder;
+          return a.nome.localeCompare(b.nome, 'pt-BR');
         });
       }
 
@@ -983,6 +1024,7 @@
 
       function renderRows() {
         if (state.loading) {
+          els.pagination.hidden = true;
           els.rows.innerHTML = Array.from({ length: 4 }, () => `<tr class="skeleton-row">${Array.from({ length: 7 }, (_, i) => `<td><div class="skeleton" style="width:${i === 0 ? 82 : 64}%"></div></td>`).join('')}</tr>`).join('');
           els.tableWrap.hidden = false;
           els.empty.classList.remove('show');
@@ -990,9 +1032,15 @@
         }
 
         const clients = visibleClients();
-        els.listSubtitle.textContent = `${clients.length} de ${state.clients.length} ${state.clients.length === 1 ? 'cliente exibido' : 'clientes exibidos'} · ${monthLabel(state.month)}`;
+        const totalPages = Math.max(1, Math.ceil(clients.length / CLIENTS_PER_PAGE));
+        state.page = Math.max(1, Math.min(state.page, totalPages));
+        const start = (state.page - 1) * CLIENTS_PER_PAGE;
+        const pageClients = clients.slice(start, start + CLIENTS_PER_PAGE);
+        const end = start + pageClients.length;
+        els.listSubtitle.textContent = `${clients.length} ${clients.length === 1 ? 'cliente encontrado' : 'clientes encontrados'} · 25 por página · ${monthLabel(state.month)}`;
         els.tableWrap.hidden = clients.length === 0;
         els.empty.classList.toggle('show', clients.length === 0);
+        els.pagination.hidden = clients.length === 0;
         if (!clients.length) {
           const filtering = state.query || state.filter !== 'todos';
           els.emptyTitle.textContent = filtering ? 'Nenhum resultado encontrado' : 'Nenhum cliente cadastrado';
@@ -1002,7 +1050,11 @@
           return;
         }
 
-        els.rows.innerHTML = clients.map((client) => {
+        els.prevPageBtn.disabled = state.page === 1;
+        els.nextPageBtn.disabled = state.page === totalPages;
+        els.pageInfo.textContent = `${start + 1}–${end} de ${clients.length} · Página ${state.page} de ${totalPages}`;
+
+        els.rows.innerHTML = pageClients.map((client) => {
           const paid = getPaid(client);
           const remaining = Math.max(0, getDue(client) - paid);
           const status = getStatus(client);
@@ -1254,9 +1306,11 @@
       });
 
       els.monthSelect.value = state.month;
-      els.monthSelect.addEventListener('change', () => { state.month = els.monthSelect.value || currentMonth; render(); });
-      els.searchInput.addEventListener('input', () => { state.query = els.searchInput.value; renderRows(); });
-      els.statusFilter.addEventListener('change', () => { state.filter = els.statusFilter.value; renderRows(); });
+      els.monthSelect.addEventListener('change', () => { state.month = els.monthSelect.value || currentMonth; state.page = 1; render(); });
+      els.searchInput.addEventListener('input', () => { state.query = els.searchInput.value; state.page = 1; renderRows(); });
+      els.statusFilter.addEventListener('change', () => { state.filter = els.statusFilter.value; state.page = 1; renderRows(); });
+      els.prevPageBtn.addEventListener('click', () => { if (state.page > 1) { state.page -= 1; renderRows(); els.tableWrap.scrollTop = 0; } });
+      els.nextPageBtn.addEventListener('click', () => { if (state.page * CLIENTS_PER_PAGE < visibleClients().length) { state.page += 1; renderRows(); els.tableWrap.scrollTop = 0; } });
       els.addBtn.addEventListener('click', () => openClientDialog());
       els.emptyAddBtn.addEventListener('click', () => openClientDialog());
       els.refreshBtn.addEventListener('click', () => loadRemote(true));
