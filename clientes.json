@@ -1,6 +1,6 @@
 {
   "versao": 1,
-  "atualizadoEm": "2026-09-14T13:02:28.428Z",
+  "atualizadoEm": "2026-09-14T17:17:18.184Z",
   "clientes": [
     {
       "id": "1b845e1c-9481-4929-aec5-b8f8966507f3",
@@ -89,7 +89,7 @@
       "pagamentos": {}
     },
     {
-      "id": "5aa8e699-c106-4f11-a953-4d6d6a392704",
+      "id": "77313b25-1ec1-4104-a2aa-4a9fb84d6aae",
       "nome": "Rafhael Barros",
       "usuario": "rbtvonline32@gmail.com",
       "whatsapp": "88992948541",
@@ -98,9 +98,9 @@
       "ativo": true,
       "pagamentos": {
         "2026-09": {
-          "pago": 0,
+          "pago": 0.01,
           "atualizadoEm": "2026-09-14T15:00:00.000Z",
-          "valorDevido": 430
+          "valorDevido": 430.01
         }
       }
     }
