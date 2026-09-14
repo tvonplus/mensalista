@@ -1,6 +1,6 @@
 {
   "versao": 1,
-  "atualizadoEm": "2026-09-14T12:56:26.904Z",
+  "atualizadoEm": "2026-09-14T13:02:28.428Z",
   "clientes": [
     {
       "id": "1b845e1c-9481-4929-aec5-b8f8966507f3",
@@ -100,7 +100,7 @@
         "2026-09": {
           "pago": 0,
           "atualizadoEm": "2026-09-14T15:00:00.000Z",
-          "valorDevido": 390
+          "valorDevido": 430
         }
       }
     }
