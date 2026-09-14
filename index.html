@@ -7,6 +7,8 @@
   <meta name="description" content="Painel de controle de clientes, mensalidades e pagamentos.">
   <title>Mensalista — Controle de clientes</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%2310233f'/%3E%3Cpath d='M18 22h28v24H18z' fill='%23fff'/%3E%3Cpath d='M18 22h28v9H18z' fill='%232bd6a3'/%3E%3Cpath d='M25 17v10M39 17v10' stroke='%23fff' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='39' cy='39' r='5' fill='%23ffb84d'/%3E%3C/svg%3E">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./icon-192.png">
   <style>
     :root {
       color-scheme: light;
@@ -39,7 +41,7 @@
     body {
       margin: 0;
       min-width: 320px;
-      zoom: .9;
+      zoom: .8;
       background: var(--canvas);
       color: var(--ink);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -62,6 +64,56 @@
       display: grid;
       grid-template-columns: 248px minmax(0, 1fr);
     }
+
+    .login-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      min-height: 100vh;
+      padding: 24px;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 18% 15%, rgba(32, 201, 151, .2), transparent 27%),
+        radial-gradient(circle at 85% 82%, rgba(55, 108, 231, .2), transparent 30%),
+        linear-gradient(155deg, var(--navy-900), var(--navy-950));
+    }
+
+    .login-screen[hidden] { display: none; }
+
+    .login-card {
+      width: min(430px, 100%);
+      padding: 31px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 24px;
+      background: #fff;
+      box-shadow: 0 32px 100px rgba(0, 0, 0, .32);
+    }
+
+    .login-mark {
+      width: 52px;
+      height: 52px;
+      margin-bottom: 21px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: var(--mint);
+      color: var(--navy-950);
+      box-shadow: 0 12px 30px rgba(32, 201, 151, .24);
+    }
+
+    .login-mark svg { width: 24px; height: 24px; }
+    .login-card h1 { margin: 0; font-size: 1.75rem; }
+    .login-card > p { margin: 8px 0 22px; color: var(--muted); font-size: .9rem; }
+    .login-field label { display: block; margin-bottom: 7px; color: #39495e; font-size: .82rem; font-weight: 760; }
+    .login-field input { width: 100%; min-height: 48px; padding: 0 13px; border: 1px solid #cfdae5; border-radius: 12px; color: var(--ink); background: #fff; }
+    .login-field input:focus { border-color: var(--blue); outline: 3px solid rgba(55, 108, 231, .13); }
+    .login-error { min-height: 20px; margin: 8px 0 3px; color: var(--red); font-size: .78rem; font-weight: 680; }
+    .login-submit { width: 100%; margin-top: 7px; }
+    .login-security { margin-top: 17px; display: flex; align-items: center; justify-content: center; gap: 7px; color: #8490a1; font-size: .72rem; }
+    .login-security svg { width: 14px; height: 14px; }
+
+    .install-ready { border-color: rgba(32, 201, 151, .55); box-shadow: 0 0 0 3px rgba(32, 201, 151, .1); }
 
     .sidebar {
       position: sticky;
@@ -492,7 +544,21 @@
   </style>
 </head>
 <body>
-  <div class="app-shell">
+  <section class="login-screen" id="loginScreen" aria-labelledby="loginTitle">
+    <div class="login-card">
+      <div class="login-mark" data-icon="lock" aria-hidden="true"></div>
+      <h1 id="loginTitle">Acesso ao Mensalista</h1>
+      <p>Digite sua senha para abrir o controle de clientes.</p>
+      <form id="loginForm">
+        <div class="login-field"><label for="loginPassword">Senha</label><input id="loginPassword" type="password" inputmode="numeric" autocomplete="current-password" required autofocus placeholder="Digite a senha"></div>
+        <div class="login-error" id="loginError" role="alert" aria-live="polite"></div>
+        <button class="btn btn-primary login-submit" type="submit"><span data-icon="lock"></span>Entrar</button>
+      </form>
+      <div class="login-security"><span data-icon="shield"></span>A senha não fica gravada em texto no arquivo.</div>
+    </div>
+  </section>
+
+  <div class="app-shell" id="appShell" hidden>
     <aside class="sidebar" aria-label="Navegação principal">
       <div class="brand">
         <div class="brand-mark" aria-hidden="true" data-icon="calendar"></div>
@@ -523,6 +589,7 @@
           <h1>Controle de clientes</h1>
         </div>
         <div class="top-actions" aria-label="Ações do arquivo">
+          <button class="btn" type="button" id="installBtn" title="Instalar como aplicativo"><span data-icon="install"></span><span>Instalar app</span></button>
           <button class="btn" type="button" id="refreshBtn"><span data-icon="refresh"></span><span>Atualizar</span></button>
           <button class="btn" type="button" id="copyBtn"><span data-icon="copy"></span><span>Copiar JSON</span></button>
           <button class="btn btn-primary" type="button" id="downloadBtn"><span data-icon="download"></span><span>Baixar JSON</span></button>
@@ -642,7 +709,7 @@
         <div class="form-grid">
           <div class="field"><label for="paymentMonth">Competência</label><input id="paymentMonth" type="month" required></div>
           <div class="field" id="paymentDebtField" hidden><label for="paymentDebt">Valor em aberto</label><input id="paymentDebt" type="number" inputmode="decimal" min="0" step="0.01"><div class="field-help">Pode incluir dívidas anteriores sem alterar a mensalidade fixa.</div></div>
-          <div class="field"><label for="paymentAmount">Valor recebido agora</label><input id="paymentAmount" type="number" inputmode="decimal" min="0.01" step="0.01" required><div class="field-help" id="paymentAmountHelp" hidden>Deixe 0 para somente salvar a dívida.</div></div>
+          <div class="field"><label for="paymentAmount">Valor recebido agora</label><input id="paymentAmount" type="number" inputmode="decimal" min="0" step="0.01" required><div class="field-help" id="paymentAmountHelp" hidden>Deixe 0 para somente salvar a dívida.</div></div>
           <div class="field full"><label for="paymentDate">Data do pagamento</label><input id="paymentDate" type="date" required></div>
         </div>
         <div class="dialog-actions"><button class="btn" type="button" data-close="paymentDialog">Cancelar</button><button class="btn btn-primary" type="submit" id="paymentSubmitBtn">Registrar pagamento</button></div>
@@ -658,6 +725,9 @@
 
       const REMOTE_URL = 'https://tvonplus.github.io/mensalista/clientes.json';
       const CACHE_KEY = 'mensalista-cache-v1';
+      const AUTH_SESSION_KEY = 'mensalista-authenticated';
+      const PASSWORD_SALT = 'mensalista-v3-2026';
+      const PASSWORD_VERIFIER = '7e16fa4a3907cd7b66df21ba2b9e25eb55e67cb022e4641c1da649a589567345';
       const localDateISO = (date = new Date()) => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
       const todayISO = localDateISO();
       const currentMonth = todayISO.slice(0, 7);
@@ -674,13 +744,14 @@
 
       const $ = (selector) => document.querySelector(selector);
       const els = {
+        loginScreen: $('#loginScreen'), loginForm: $('#loginForm'), loginPassword: $('#loginPassword'), loginError: $('#loginError'), appShell: $('#appShell'),
         rows: $('#clientRows'), tableWrap: $('#tableWrap'), empty: $('#emptyState'),
         emptyTitle: $('#emptyTitle'), emptyText: $('#emptyText'), listSubtitle: $('#listSubtitle'),
         activeValue: $('#activeValue'), activeCaption: $('#activeCaption'),
         receivedValue: $('#receivedValue'), receivedCaption: $('#receivedCaption'),
         remainingValue: $('#remainingValue'), remainingCaption: $('#remainingCaption'),
         progressValue: $('#progressValue'), progressPercent: $('#progressPercent'), progressRing: $('#progressRing'),
-        refreshBtn: $('#refreshBtn'), copyBtn: $('#copyBtn'), downloadBtn: $('#downloadBtn'), addBtn: $('#addBtn'), emptyAddBtn: $('#emptyAddBtn'),
+        installBtn: $('#installBtn'), refreshBtn: $('#refreshBtn'), copyBtn: $('#copyBtn'), downloadBtn: $('#downloadBtn'), addBtn: $('#addBtn'), emptyAddBtn: $('#emptyAddBtn'),
         monthSelect: $('#monthSelect'), searchInput: $('#searchInput'), statusFilter: $('#statusFilter'),
         syncText: $('#syncText'), dirtyPill: $('#dirtyPill'), sourceDot: $('#sourceDot'), sourceStatus: $('#sourceStatus'), sourceMeta: $('#sourceMeta'),
         clientDialog: $('#clientDialog'), clientForm: $('#clientForm'), clientDialogTitle: $('#clientDialogTitle'),
@@ -704,6 +775,9 @@
         plus: '<path d="M12 5v14M5 12h14"/>',
         edit: '<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/>',
         wallet: '<path d="M4 6h15a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3h13v3"/><path d="M16 12h5"/>',
+        install: '<path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/>',
+        lock: '<rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>',
+        shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>',
         x: '<path d="M18 6 6 18M6 6l12 12"/>',
         check: '<path d="m5 12 4 4L19 6"/>',
         alert: '<circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/>'
@@ -1042,7 +1116,7 @@
           els.paymentDebt.value = remaining.toFixed(2);
           els.paymentDebt.dataset.previous = remaining.toFixed(2);
         }
-        els.paymentAmount.min = els.paymentForm.dataset.mode === 'saldo' ? '0' : '0.01';
+        els.paymentAmount.min = '0';
         els.paymentAmount.max = String(remaining || getDue(client, month));
         els.paymentAmount.value = els.paymentForm.dataset.mode === 'saldo' ? '0.00' : remaining.toFixed(2);
         updatePaymentSubmitLabel();
@@ -1067,7 +1141,7 @@
         els.paymentDebt.required = payRest;
         els.paymentDebt.value = remaining.toFixed(2);
         els.paymentDebt.dataset.previous = remaining.toFixed(2);
-        els.paymentAmount.min = payRest ? '0' : '0.01';
+        els.paymentAmount.min = '0';
         els.paymentAmount.value = payRest ? '0.00' : remaining.toFixed(2);
         els.paymentAmount.max = String(remaining || getDue(client, month));
         els.paymentAmountHelp.hidden = !payRest;
@@ -1109,9 +1183,8 @@
         const alreadyPaid = getRawPaid(client, month);
         const balanceMode = els.paymentForm.dataset.mode === 'saldo';
         const openBalance = balanceMode ? Math.round(numberFrom(els.paymentDebt.value) * 100) / 100 : Math.max(0, getDue(client, month) - alreadyPaid);
-        if (openBalance < 0 || amount < 0 || (!balanceMode && amount <= 0) || amount > openBalance + .001) {
-          const minimum = balanceMode ? 'R$ 0,00' : 'R$ 0,01';
-          toast(`Informe um valor entre ${minimum} e ${money(openBalance)}.`, 'error');
+        if (openBalance < 0 || amount < 0 || amount > openBalance + .001) {
+          toast(`Informe um valor entre R$ 0,00 e ${money(openBalance)}.`, 'error');
           return;
         }
         client.pagamentos ||= {};
@@ -1123,6 +1196,7 @@
         els.monthSelect.value = month;
         els.paymentDialog.close();
         if (balanceMode && amount === 0) markDirty('Valor em aberto atualizado sem alterar a mensalidade fixa.');
+        else if (amount === 0) markDirty('Registro salvo sem pagamento; o saldo continua em aberto.');
         else if (amount < openBalance) markDirty('Pagamento parcial registrado; o restante continua em aberto.');
         else markDirty(balanceMode ? 'Saldo registrado como pago.' : 'Mensalidade renovada com sucesso.');
       });
@@ -1236,11 +1310,11 @@
           name: 'register_payment',
           title: 'Registrar pagamento',
           description: 'Registra um pagamento total ou parcial para um cliente e uma competência.',
-          inputSchema: { type: 'object', properties: { clienteId: { type: 'string', minLength: 1 }, mes: { type: 'string', pattern: '^\\d{4}-\\d{2}$' }, valor: { type: 'number', exclusiveMinimum: 0 }, data: { type: 'string', pattern: '^\\d{4}-\\d{2}-\\d{2}$' } }, required: ['clienteId', 'mes', 'valor'], additionalProperties: false },
+          inputSchema: { type: 'object', properties: { clienteId: { type: 'string', minLength: 1 }, mes: { type: 'string', pattern: '^\\d{4}-\\d{2}$' }, valor: { type: 'number', minimum: 0 }, data: { type: 'string', pattern: '^\\d{4}-\\d{2}-\\d{2}$' } }, required: ['clienteId', 'mes', 'valor'], additionalProperties: false },
           annotations: { readOnlyHint: false, untrustedContentHint: false },
           execute(input) {
             const client = state.clients.find((item) => item.id === input?.clienteId);
-            if (!client || !/^\d{4}-\d{2}$/.test(input.mes || '') || !Number.isFinite(input.valor) || input.valor <= 0) throw new Error('Pagamento inválido.');
+            if (!client || !/^\d{4}-\d{2}$/.test(input.mes || '') || !Number.isFinite(input.valor) || input.valor < 0) throw new Error('Pagamento inválido.');
             const paid = getRawPaid(client, input.mes);
             const due = getDue(client, input.mes);
             const remaining = Math.max(0, due - paid);
@@ -1273,9 +1347,74 @@
         });
       }
 
-      render();
-      registerWebMCP();
-      loadRemote(false);
+      async function derivePassword(value) {
+        const encoder = new TextEncoder();
+        const key = await crypto.subtle.importKey('raw', encoder.encode(value), 'PBKDF2', false, ['deriveBits']);
+        const bits = await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt: encoder.encode(PASSWORD_SALT), iterations: 150000 }, key, 256);
+        return Array.from(new Uint8Array(bits), (byte) => byte.toString(16).padStart(2, '0')).join('');
+      }
+
+      let appStarted = false;
+      function startApp() {
+        if (appStarted) return;
+        appStarted = true;
+        els.loginScreen.hidden = true;
+        els.appShell.hidden = false;
+        els.appShell.removeAttribute('aria-hidden');
+        render();
+        registerWebMCP();
+        loadRemote(false);
+      }
+
+      els.loginForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        els.loginError.textContent = '';
+        const submit = els.loginForm.querySelector('button[type="submit"]');
+        submit.disabled = true;
+        try {
+          const verifier = await derivePassword(els.loginPassword.value);
+          if (verifier !== PASSWORD_VERIFIER) {
+            els.loginError.textContent = 'Senha incorreta. Tente novamente.';
+            els.loginPassword.select();
+            return;
+          }
+          sessionStorage.setItem(AUTH_SESSION_KEY, '1');
+          startApp();
+        } catch (_) {
+          els.loginError.textContent = 'Não foi possível validar a senha neste navegador.';
+        } finally {
+          submit.disabled = false;
+        }
+      });
+
+      let installPrompt = null;
+      window.addEventListener('beforeinstallprompt', (event) => {
+        event.preventDefault();
+        installPrompt = event;
+        els.installBtn.classList.add('install-ready');
+      });
+
+      els.installBtn.addEventListener('click', async () => {
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+          toast('O Mensalista já está instalado como aplicativo.');
+          return;
+        }
+        if (!installPrompt) {
+          toast(location.protocol === 'file:' ? 'Abra o endereço publicado para instalar o aplicativo.' : 'No menu do navegador, escolha “Instalar Mensalista”.');
+          return;
+        }
+        installPrompt.prompt();
+        await installPrompt.userChoice;
+        installPrompt = null;
+        els.installBtn.classList.remove('install-ready');
+      });
+
+      window.addEventListener('appinstalled', () => toast('Mensalista instalado na área de trabalho.'));
+      if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('./sw.js').catch(() => {});
+
+      els.appShell.setAttribute('aria-hidden', 'true');
+      if (sessionStorage.getItem(AUTH_SESSION_KEY) === '1') startApp();
+      else requestAnimationFrame(() => els.loginPassword.focus());
     })();
   </script>
 </body>
