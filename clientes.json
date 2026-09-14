@@ -1,1 +1,77 @@
 
+{
+  "versao": 1,
+  "atualizadoEm": "2026-09-14T12:28:49.847Z",
+  "clientes": [
+    {
+      "id": "1b845e1c-9481-4929-aec5-b8f8966507f3",
+      "nome": "Aleson",
+      "usuario": "arecommercedigital@gmail.com",
+      "whatsapp": "11945554784",
+      "mensalidade": 200,
+      "vencimento": 10,
+      "ativo": true,
+      "pagamentos": {
+        "2026-09": {
+          "pago": 200,
+          "atualizadoEm": "2026-09-14T15:00:00.000Z"
+        }
+      }
+    },
+    {
+      "id": "d0aa3ff9-460b-407e-846d-fc20d89df3e6",
+      "nome": "Aloncio",
+      "usuario": "srmeliodas037@gmail.com",
+      "whatsapp": "38991287072",
+      "mensalidade": 200,
+      "vencimento": 26,
+      "ativo": true,
+      "pagamentos": {}
+    },
+    {
+      "id": "ad242c9b-2b6d-4452-9165-305c74367b99",
+      "nome": "Clademilson",
+      "usuario": "claudemilson.passos.gomes@gmail.com",
+      "whatsapp": "5561981585716",
+      "mensalidade": 200,
+      "vencimento": 15,
+      "ativo": true,
+      "pagamentos": {}
+    },
+    {
+      "id": "4280acb2-ef09-4e4f-8371-2609427fd498",
+      "nome": "Julierme",
+      "usuario": "julierme.souza@gmail.com",
+      "whatsapp": "5537999989150",
+      "mensalidade": 200,
+      "vencimento": 20,
+      "ativo": true,
+      "pagamentos": {}
+    },
+    {
+      "id": "17ccd5dc-b14b-41be-80c9-44e2ea107e35",
+      "nome": "Kenia",
+      "usuario": "keniajck2023@gmail.com",
+      "whatsapp": "91991292934",
+      "mensalidade": 200,
+      "vencimento": 7,
+      "ativo": true,
+      "pagamentos": {
+        "2026-09": {
+          "pago": 200,
+          "atualizadoEm": "2026-09-01T15:00:00.000Z"
+        }
+      }
+    },
+    {
+      "id": "53fdeb08-c4a9-4a03-98c6-b74fa2611c27",
+      "nome": "Lucas",
+      "usuario": "ferreiralins1810@gmail.com",
+      "whatsapp": "8195794795",
+      "mensalidade": 200,
+      "vencimento": 30,
+      "ativo": true,
+      "pagamentos": {}
+    }
+  ]
+}
