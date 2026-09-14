@@ -1,7 +1,6 @@
-
 {
   "versao": 1,
-  "atualizadoEm": "2026-09-14T12:28:49.847Z",
+  "atualizadoEm": "2026-09-14T12:39:17.273Z",
   "clientes": [
     {
       "id": "1b845e1c-9481-4929-aec5-b8f8966507f3",
@@ -27,6 +26,22 @@
       "vencimento": 26,
       "ativo": true,
       "pagamentos": {}
+    },
+    {
+      "id": "4d687e2b-887d-4726-aac5-50ad04c55de6",
+      "nome": "Amilton",
+      "usuario": "amiltonforever547@gmail.com",
+      "whatsapp": "66992609698",
+      "mensalidade": 200,
+      "vencimento": 1,
+      "ativo": true,
+      "pagamentos": {
+        "2026-09": {
+          "pago": 0.01,
+          "atualizadoEm": "2026-09-14T15:00:00.000Z",
+          "valorDevido": 390.01
+        }
+      }
     },
     {
       "id": "ad242c9b-2b6d-4452-9165-305c74367b99",
@@ -70,6 +85,16 @@
       "whatsapp": "8195794795",
       "mensalidade": 200,
       "vencimento": 30,
+      "ativo": true,
+      "pagamentos": {}
+    },
+    {
+      "id": "5aa8e699-c106-4f11-a953-4d6d6a392704",
+      "nome": "Rafhael Barros",
+      "usuario": "rbtvonline32@gmail.com",
+      "whatsapp": "88992948541",
+      "mensalidade": 200,
+      "vencimento": 10,
       "ativo": true,
       "pagamentos": {}
     }
