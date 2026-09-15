@@ -1,6 +1,6 @@
 {
   "versao": 1,
-  "atualizadoEm": "2026-09-14T17:17:18.184Z",
+  "atualizadoEm": "2026-09-15T12:29:59.699Z",
   "clientes": [
     {
       "id": "1b845e1c-9481-4929-aec5-b8f8966507f3",
@@ -51,7 +51,12 @@
       "mensalidade": 200,
       "vencimento": 15,
       "ativo": true,
-      "pagamentos": {}
+      "pagamentos": {
+        "2026-09": {
+          "pago": 200,
+          "atualizadoEm": "2026-09-15T15:00:00.000Z"
+        }
+      }
     },
     {
       "id": "4280acb2-ef09-4e4f-8371-2609427fd498",
